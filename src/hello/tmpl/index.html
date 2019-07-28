@@ -10,17 +10,30 @@
 
 <body>
     <h1>Today</h1>
+    <form action="/todo2">
+        Todo:<input type="text" name="content">
+        Assignee:<input type="text" name="createdby">
+        <input type="submit" value="Send">
+    </form>
     <ul>
         {{range .todo}}
-        <li>{{.CreatedAtS}} {{.CreatedBy}} {{.Content}}
-            {{if eq .Status 0}}
-            Not yet
-            {{else}}
-            Done
-            {{end}}
+        <li>
+            <form action="/done">
+                <input type="hidden" name="ida" value="{{.ID}}">
+                <input type="hidden" name="status" value="{{.Status}}">
+                {{.CreatedAtS}} {{.CreatedBy}} {{.Content}}
+                {{if eq .Status 0}}
+                Not yet
+                <input type="submit" value="Done">
+                {{else}}
+                Done
+                <input type="submit" value="Undo">
+                {{end}}
+            </form>
         </li>
         {{end}}
     </ul>
+    </form>
 </body>
 
 </html>
